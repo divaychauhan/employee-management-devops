@@ -1,9 +1,9 @@
-name: Build and Deploy
+nname: Deploy to Development
 
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   build-and-deploy:
@@ -23,22 +23,21 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t divaypratap/employee-management-app:latest .
+          docker build -t divaypratap/employee-management-app:dev .
 
       - name: Push Docker Image
         run: |
-          docker push divaypratap/employee-management-app:latest
+          docker push divaypratap/employee-management-app:dev
 
-      - name: Deploy to Production
+      - name: Deploy to Development Server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.DEV_USERNAME }}
+          key: ${{ secrets.DEV_SSH_KEY }}
 
           script: |
-
-            docker pull divaypratap/employee-management-app:latest
+            docker pull divaypratap/employee-management-app:dev
 
             docker stop employee-app || true
 
@@ -48,4 +47,4 @@ jobs:
               --name employee-app \
               -p 5000:5000 \
               --restart unless-stopped \
-              divaypratap/employee-management-app:latest
+              divaypratap/employee-management-app:dev
