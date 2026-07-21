@@ -1,4 +1,4 @@
-nname: Deploy to Development
+name: Deploy to Development
 
 on:
   push:
