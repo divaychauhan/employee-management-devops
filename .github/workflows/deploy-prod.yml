@@ -44,5 +44,6 @@ jobs:
             docker run -d \
               --name employee-app \
               --restart unless-stopped \
+              -e MONGO_URI="${{ secrets.MONGO_URI }}" \
               -p 5000:5000 \
               divaypratap/employee-management-app:latest
