@@ -1,0 +1,185 @@
+/* ======================================
+   Global
+====================================== */
+
+body{
+
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    min-height:100vh;
+    font-family:'Segoe UI',sans-serif;
+
+}
+
+
+/* ======================================
+   Navbar
+====================================== */
+
+.navbar{
+
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+}
+
+.navbar-brand{
+
+    font-size:24px;
+    font-weight:bold;
+
+}
+
+
+/* ======================================
+   Card
+====================================== */
+
+.card{
+
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+    animation:fadeIn .5s ease;
+
+}
+
+.card-header{
+
+    padding:18px;
+
+}
+
+.card-body{
+
+    padding:30px;
+
+}
+
+
+/* ======================================
+   Form
+====================================== */
+
+label{
+
+    font-weight:600;
+
+}
+
+.form-control{
+
+    height:48px;
+    border-radius:10px;
+
+}
+
+.form-control:focus{
+
+    box-shadow:0 0 8px rgba(13,110,253,.5);
+
+}
+
+
+/* ======================================
+   Buttons
+====================================== */
+
+.btn{
+
+    border-radius:10px;
+    transition:.3s;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.btn-success:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.btn-danger:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ======================================
+   Table
+====================================== */
+
+table{
+
+    background:white;
+
+}
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table thead{
+
+    font-size:16px;
+
+}
+
+.table tbody tr:hover{
+
+    background:#f1f7ff;
+
+}
+
+
+/* ======================================
+   Animation
+====================================== */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ======================================
+   Responsive
+====================================== */
+
+@media(max-width:768px){
+
+    .card{
+
+        margin:10px;
+
+    }
+
+    .navbar-brand{
+
+        font-size:18px;
+
+    }
+
+}

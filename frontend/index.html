@@ -1,135 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Employee Management System DEV</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Employee Management System</title>
 
-<style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-body{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:'Segoe UI',sans-serif;
-}
-
-.card{
-width:650px;
-border:none;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.4);
-overflow:hidden;
-}
-
-.card-header{
-background:#0d6efd;
-color:white;
-padding:25px;
-text-align:center;
-}
-
-.card-header h2{
-font-weight:bold;
-}
-
-.card-body{
-padding:35px;
-background:white;
-}
-
-.form-control{
-height:50px;
-border-radius:10px;
-}
-
-.btn-primary{
-height:50px;
-font-size:18px;
-font-weight:bold;
-border-radius:10px;
-}
-
-.btn-primary:hover{
-transform:scale(1.02);
-transition:.3s;
-}
-
-.footer{
-text-align:center;
-margin-top:20px;
-}
-
-</style>
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<div class="card">
+<nav class="navbar navbar-dark bg-primary shadow">
 
-<div class="card-header">
-    
-<h2 style="color:red;">
-🚀 DEV SERVER 🚀
-</h2>
+    <div class="container">
 
-<p>Register New Employee</p>
+        <span class="navbar-brand fw-bold">
+
+            Employee Management System
+
+        </span>
+
+    </div>
+
+</nav>
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-primary text-white text-center">
+
+                    <h3>Add Employee</h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form id="employeeForm">
+
+                        <div class="mb-3">
+
+                            <label>Name</label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>Email</label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>Phone</label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="phone"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>City</label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="city"
+                                required>
+
+                        </div>
+
+                        <button class="btn btn-primary w-100">
+
+                            Save Employee
+
+                        </button>
+
+                    </form>
+
+                    <div class="text-center mt-4">
+
+                        <a href="employees.html" class="btn btn-success">
+
+                            View Employees
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-<div class="card-body">
-
-<form action="/add" method="POST">
-
-<div class="mb-3">
-<label>Name</label>
-<input class="form-control" type="text" name="name" required>
-</div>
-
-<div class="mb-3">
-<label>Email</label>
-<input class="form-control" type="email" name="email" required>
-</div>
-
-<div class="mb-3">
-<label>Phone</label>
-<input class="form-control" type="text" name="phone" required>
-</div>
-
-<div class="mb-3">
-<label>City</label>
-<input class="form-control" type="text" name="city" required>
-</div>
-
-<button class="btn btn-primary w-100">
-
-Save Employee
-
-</button>
-
-</form>
-
-<div class="footer">
-
-<br>
-
-<a href="/employees" class="btn btn-success">
-
-View Employees
-
-</a>
-
-</div>
-
-</div>
-
-</div>
+<script src="js/script.js"></script>
 
 </body>
 
