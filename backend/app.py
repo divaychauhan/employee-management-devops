@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
+from flask_cors import CORS
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # ==========================
 # MongoDB Connection
@@ -77,6 +79,28 @@ def delete_employee(id):
     )
 
     return redirect("/employees")
+
+
+# ===================================================
+# REST API
+# ===================================================
+
+@app.route("/api/employees", methods=["GET"])
+def api_employees():
+
+    employee_list = []
+
+    for emp in collection.find():
+
+        employee_list.append({
+            "id": str(emp["_id"]),
+            "name": emp["name"],
+            "email": emp["email"],
+            "phone": emp["phone"],
+            "city": emp["city"]
+        })
+
+    return jsonify(employee_list)
 
 
 # ==========================
