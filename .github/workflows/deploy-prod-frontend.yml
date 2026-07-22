@@ -1,0 +1,45 @@
+name: Deploy Production Frontend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Copy Frontend Files
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+
+          source: "frontend/*"
+          target: "/tmp"
+
+      - name: Deploy Frontend
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+
+          script: |
+            sudo rm -rf /var/www/html/*
+            sudo cp -r /tmp/frontend/* /var/www/html/
+
+            sudo chown -R www-data:www-data /var/www/html
+
+            sudo systemctl restart nginx
+
+            sudo systemctl status nginx --no-pager
