@@ -1,0 +1,50 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Backend Docker Image
+        run: |
+          docker build -t divaypratap/employee-management-backend:dev ./backend
+
+      - name: Push Backend Docker Image
+        run: |
+          docker push divaypratap/employee-management-backend:dev
+
+      - name: Deploy Backend
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.BACKEND_HOST }}
+          username: ${{ secrets.BACKEND_USERNAME }}
+          key: ${{ secrets.BACKEND_SSH_KEY }}
+
+          script: |
+            docker pull divaypratap/employee-management-backend:dev
+
+            docker stop backend-app || true
+            docker rm backend-app || true
+
+            docker run -d \
+              --name backend-app \
+              --restart unless-stopped \
+              -e MONGO_URI="${{ secrets.MONGO_URI }}" \
+              -p 5000:5000 \
+              divaypratap/employee-management-backend:dev
