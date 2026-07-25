@@ -43,7 +43,7 @@ form.addEventListener("submit", async function (e) {
     try {
 
         // Development Backend
-        const response = await fetch("/api/students",  {
+        const response = await fetch("http://34.47.233.168:5000/api/students", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
