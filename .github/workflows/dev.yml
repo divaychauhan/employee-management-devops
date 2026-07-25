@@ -14,6 +14,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        - name: Debug Frontend
+  run: |
+    echo "Current commit:"
+    git rev-parse HEAD
+
+    echo "Frontend title:"
+    grep "<title>" frontend/index.html
+
+    echo "Frontend files:"
+    ls -R frontend
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
