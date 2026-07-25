@@ -218,6 +218,23 @@ def admin_logout():
     session.clear()
 
     return redirect(url_for("admin_login"))
+
+
+# ============================================
+# ADMIN DELETE STUDENT
+# ============================================
+
+@app.route("/admin/delete/<id>")
+def admin_delete(id):
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    collection.delete_one({
+        "_id": ObjectId(id)
+    })
+
+    return redirect(url_for("admin_dashboard"))
 # ============================================
 # HEALTH CHECK
 # ============================================
