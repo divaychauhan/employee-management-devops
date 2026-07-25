@@ -1,154 +1,243 @@
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    jsonify,
+    session,
+    url_for
+)
+
 from flask_cors import CORS
+
 from pymongo import MongoClient
+
 from bson.objectid import ObjectId
+
 import os
 
+# ============================================
+# Flask App
+# ============================================
+
 app = Flask(__name__)
+
+app.secret_key = "guitaracademy123"
+
 CORS(app)
 
 # ============================================
 # MongoDB Connection
 # ============================================
 
-MONGO_URI = os.getenv(
-    "MONGO_URI",
-    "mongodb://10.10.0.2:27017/"
-)
+MONGO_URI = os.getenv("MONGO_URI")
 
 client = MongoClient(MONGO_URI)
 
-db = client["EmployeeDB"]
-collection = db["employees"]
+db = client["GuitarAcademyDB"]
 
+collection = db["students"]
 
+admin_collection = db["admins"]
 # ============================================
-# Temporary HTML Routes
-# (Will be removed after frontend migration)
+# HOME PAGE
 # ============================================
 
 @app.route("/")
 def home():
+
     return render_template("index.html")
 
-
-@app.route("/employees")
-def employees():
-
-    employee_list = list(collection.find())
-
-    total = collection.count_documents({})
-
-    return render_template(
-        "employees.html",
-        employees=employee_list,
-        total=total
-    )
-
-
-@app.route("/add", methods=["POST"])
-def add_employee():
-
-    employee = {
-        "name": request.form["name"],
-        "email": request.form["email"],
-        "phone": request.form["phone"],
-        "city": request.form["city"]
-    }
-
-    collection.insert_one(employee)
-
-    return redirect("/employees")
-
-
-@app.route("/delete/<id>")
-def delete_employee(id):
-
-    collection.delete_one(
-        {"_id": ObjectId(id)}
-    )
-
-    return redirect("/employees")
-
-
 # ============================================
-# REST API
+# STUDENT REST API
 # ============================================
 
-# Get All Employees
-@app.route("/api/employees", methods=["GET"])
-def api_get_employees():
+# Get All Students
+@app.route("/api/students", methods=["GET"])
+def api_get_students():
 
-    employee_list = []
+    students = []
 
-    for emp in collection.find():
+    for student in collection.find():
 
-        employee_list.append({
+        students.append({
 
-            "id": str(emp["_id"]),
-            "name": emp["name"],
-            "email": emp["email"],
-            "phone": emp["phone"],
-            "city": emp["city"]
+            "id": str(student["_id"]),
+            "student_name": student.get("student_name", ""),
+            "father_name": student.get("father_name", ""),
+            "mother_name": student.get("mother_name", ""),
+            "dob": student.get("dob", ""),
+            "gender": student.get("gender", ""),
+            "email": student.get("email", ""),
+            "phone": student.get("phone", ""),
+            "whatsapp": student.get("whatsapp", ""),
+            "address": student.get("address", ""),
+            "city": student.get("city", ""),
+            "state": student.get("state", ""),
+            "pincode": student.get("pincode", ""),
+            "guitar_type": student.get("guitar_type", ""),
+            "level": student.get("level", ""),
+            "batch": student.get("batch", ""),
+            "experience": student.get("experience", ""),
+            "guardian_name": student.get("guardian_name", ""),
+            "guardian_phone": student.get("guardian_phone", "")
 
         })
 
-    return jsonify(employee_list)
+    return jsonify(students)
 
 
-# Add Employee
-@app.route("/api/employees", methods=["POST"])
-def api_add_employee():
+# Register Student
+@app.route("/api/students", methods=["POST"])
+def api_add_student():
 
     data = request.get_json()
 
-    employee = {
+    student = {
 
-        "name": data["name"],
-        "email": data["email"],
-        "phone": data["phone"],
-        "city": data["city"]
+        "student_name": data.get("student_name"),
+        "father_name": data.get("father_name"),
+        "mother_name": data.get("mother_name"),
+        "dob": data.get("dob"),
+        "gender": data.get("gender"),
+        "email": data.get("email"),
+        "phone": data.get("phone"),
+        "whatsapp": data.get("whatsapp"),
+        "address": data.get("address"),
+        "city": data.get("city"),
+        "state": data.get("state"),
+        "pincode": data.get("pincode"),
+        "guitar_type": data.get("guitar_type"),
+        "level": data.get("level"),
+        "batch": data.get("batch"),
+        "experience": data.get("experience"),
+        "guardian_name": data.get("guardian_name"),
+        "guardian_phone": data.get("guardian_phone")
 
     }
 
-    result = collection.insert_one(employee)
+    result = collection.insert_one(student)
 
     return jsonify({
 
-        "message": "Employee added successfully",
+        "message": "Student registered successfully",
         "id": str(result.inserted_id)
 
     }), 201
 
 
-# Delete Employee
-@app.route("/api/employees/<id>", methods=["DELETE"])
-def api_delete_employee(id):
+# Delete Student
+@app.route("/api/students/<id>", methods=["DELETE"])
+def api_delete_student(id):
 
-    collection.delete_one(
-        {"_id": ObjectId(id)}
-    )
+    collection.delete_one({
 
-    return jsonify({
-
-        "message": "Employee deleted successfully"
+        "_id": ObjectId(id)
 
     })
 
+    return jsonify({
 
-# Health Check
+        "message": "Student deleted successfully"
+
+    })
+    
+    # ============================================
+# ADMIN LOGIN
+# ============================================
+
+@app.route("/admin/login")
+def admin_login():
+
+    return render_template("admin_login.html")
+
+
+@app.route("/admin/login", methods=["POST"])
+def admin_login_post():
+
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    admin = admin_collection.find_one({
+
+        "username": username,
+        "password": password
+
+    })
+
+    if admin:
+
+        session["admin"] = username
+
+        return redirect(url_for("admin_dashboard"))
+
+    return render_template(
+
+        "admin_login.html",
+
+        error="Invalid Username or Password"
+
+    )
+
+
+# ============================================
+# ADMIN DASHBOARD
+# ============================================
+
+@app.route("/admin/dashboard")
+def admin_dashboard():
+
+    if not session.get("admin"):
+
+        return redirect(url_for("admin_login"))
+
+    students = list(collection.find())
+
+    total = collection.count_documents({})
+
+    return render_template(
+
+        "dashboard.html",
+
+        students=students,
+
+        total=total,
+
+        admin=session["admin"]
+
+    )
+
+
+# ============================================
+# ADMIN LOGOUT
+# ============================================
+
+@app.route("/admin/logout")
+def admin_logout():
+
+    session.clear()
+
+    return redirect(url_for("admin_login"))
+# ============================================
+# HEALTH CHECK
+# ============================================
+
 @app.route("/health")
 def health():
 
     return jsonify({
 
-        "status": "UP"
+        "status": "UP",
+
+        "application": "Guitar Coaching Academy",
+
+        "database": "MongoDB Atlas"
 
     })
 
 
 # ============================================
-# Run Flask App
+# RUN FLASK APP
 # ============================================
 
 if __name__ == "__main__":
@@ -156,7 +245,9 @@ if __name__ == "__main__":
     app.run(
 
         host="0.0.0.0",
+
         port=5000,
+
         debug=True
 
     )

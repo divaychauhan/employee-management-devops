@@ -988,3 +988,25 @@ button{
 }
 
 }
+
+.admin-btn{
+
+    background:#ff9800;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    color:white !important;
+
+    transition:.3s;
+
+}
+
+.admin-btn:hover{
+
+    background:#ffb74d;
+
+    color:black !important;
+
+}

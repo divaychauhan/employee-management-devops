@@ -1,135 +1,509 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Employee Management System DEV</title>
+    <title>Guitar Coaching Academy</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-<style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-body{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:'Segoe UI',sans-serif;
-}
-
-.card{
-width:650px;
-border:none;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.4);
-overflow:hidden;
-}
-
-.card-header{
-background:#0d6efd;
-color:white;
-padding:25px;
-text-align:center;
-}
-
-.card-header h2{
-font-weight:bold;
-}
-
-.card-body{
-padding:35px;
-background:white;
-}
-
-.form-control{
-height:50px;
-border-radius:10px;
-}
-
-.btn-primary{
-height:50px;
-font-size:18px;
-font-weight:bold;
-border-radius:10px;
-}
-
-.btn-primary:hover{
-transform:scale(1.02);
-transition:.3s;
-}
-
-.footer{
-text-align:center;
-margin-top:20px;
-}
-
-</style>
+    <!-- CSS -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
 <body>
 
-<div class="card">
+<!-- ================= NAVBAR ================= -->
 
-<div class="card-header">
-    
-<h2 style="color:red;">
-🚀 DEV SERVER 🚀
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-guitar"></i>
+
+            Guitar Academy
+
+        </div>
+
+      <ul class="nav-links">
+
+    <li><a href="#">Home</a></li>
+
+    <li><a href="#about">About</a></li>
+
+    <li><a href="#courses">Courses</a></li>
+
+    <li><a href="#register">Registration</a></li>
+
+    <li><a href="#contact">Contact</a></li>
+
+    <li>
+        <a href="/admin/login" class="admin-btn">
+            👤 Admin
+        </a>
+    </li>
+
+</ul>
+
+    </nav>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="overlay">
+
+        <h1>
+
+            Learn Guitar Like a Professional
+
+        </h1>
+
+        <p>
+
+            India's Premium Guitar Coaching Academy
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#register" class="btn">
+
+                Register Now
+
+            </a>
+
+            <a href="#courses" class="btn-outline">
+
+                Explore Courses
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="about">
+
+    <h2>
+
+        Why Choose Guitar Academy?
+
+    </h2>
+
+    <p class="section-text">
+
+        We provide professional guitar coaching for students of all ages.
+        Whether you're a beginner picking up your first guitar or an advanced
+        player looking to improve your skills, our experienced instructors
+        will guide you through every step of your musical journey.
+
+    </p>
+
+    <div class="about-container">
+
+        <div class="card">
+
+            <i class="fa-solid fa-user-graduate"></i>
+
+            <h3>Professional Trainers</h3>
+
+            <p>
+
+                Learn from experienced musicians with years of teaching
+                experience.
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-clock"></i>
+
+            <h3>Flexible Timings</h3>
+
+            <p>
+
+                Morning, Evening and Weekend classes available for students.
+
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-guitar"></i>
+
+            <h3>Modern Courses</h3>
+
+            <p>
+
+                Acoustic, Electric, Bass and Classical Guitar programs.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= COURSES ================= -->
+
+<section id="courses">
+
+    <h2>
+
+        Our Guitar Courses
+
+    </h2>
+
+    <div class="course-grid">
+
+        <div class="course-card">
+
+            <i class="fa-solid fa-guitar"></i>
+
+            <h3>
+
+                Acoustic Guitar
+
+            </h3>
+
+            <p>
+
+                Perfect course for beginners who want to start their musical
+                journey.
+
+            </p>
+
+        </div>
+
+        <div class="course-card">
+
+            <i class="fa-solid fa-bolt"></i>
+
+            <h3>
+
+                Electric Guitar
+
+            </h3>
+
+            <p>
+
+                Learn rock, blues, metal, solos and advanced techniques.
+
+            </p>
+
+        </div>
+
+        <div class="course-card">
+
+            <i class="fa-solid fa-music"></i>
+
+            <h3>
+
+                Bass Guitar
+
+            </h3>
+
+            <p>
+
+                Develop rhythm, groove and professional bass playing skills.
+
+            </p>
+
+        </div>
+
+        <div class="course-card">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <h3>
+
+                Classical Guitar
+
+            </h3>
+
+            <p>
+
+                Learn fingerstyle, notation reading and classical techniques.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= REGISTRATION STARTS HERE ================= -->
+
+<section id="register">
+
+<h2>
+
+Student Registration
+
 </h2>
 
-<p>Register New Employee</p>
+<form id="registrationForm">
+        <!-- Personal Information -->
 
-</div>
+    <div class="row">
 
-<div class="card-body">
+        <input type="text"
+               id="studentName"
+               placeholder="Student Name *"
+               required>
 
-<form action="/add" method="POST">
+        <input type="text"
+               id="fatherName"
+               placeholder="Father Name *"
+               required>
 
-<div class="mb-3">
-<label>Name</label>
-<input class="form-control" type="text" name="name" required>
-</div>
+    </div>
 
-<div class="mb-3">
-<label>Email</label>
-<input class="form-control" type="email" name="email" required>
-</div>
+    <div class="row">
 
-<div class="mb-3">
-<label>Phone</label>
-<input class="form-control" type="text" name="phone" required>
-</div>
+        <input type="text"
+               id="motherName"
+               placeholder="Mother Name">
 
-<div class="mb-3">
-<label>City</label>
-<input class="form-control" type="text" name="city" required>
-</div>
+        <input type="date"
+               id="dob">
 
-<button class="btn btn-primary w-100">
+    </div>
 
-Save Employee
+    <div class="row">
 
-</button>
+        <select id="gender">
+
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+
+        </select>
+
+        <select id="guitarType">
+
+            <option value="">Select Guitar Type</option>
+            <option>Acoustic Guitar</option>
+            <option>Electric Guitar</option>
+            <option>Bass Guitar</option>
+            <option>Classical Guitar</option>
+
+        </select>
+
+    </div>
+
+    <!-- Contact Information -->
+
+    <div class="row">
+
+        <input type="email"
+               id="email"
+               placeholder="Email Address *"
+               required>
+
+        <input type="tel"
+               id="phone"
+               placeholder="Phone Number *"
+               required>
+
+    </div>
+
+    <div class="row">
+
+        <input type="tel"
+               id="whatsapp"
+               placeholder="WhatsApp Number">
+
+        <input type="text"
+               id="guardianPhone"
+               placeholder="Guardian Phone Number">
+
+    </div>
+
+    <!-- Address -->
+
+    <textarea id="address"
+              placeholder="Full Address"></textarea>
+
+    <div class="row">
+
+        <input type="text"
+               id="city"
+               placeholder="City">
+
+        <input type="text"
+               id="state"
+               placeholder="State">
+
+    </div>
+
+    <div class="row">
+
+        <input type="text"
+               id="pincode"
+               placeholder="PIN Code">
+
+        <select id="level">
+
+            <option value="">Skill Level</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+
+        </select>
+
+    </div>
+
+    <!-- Batch -->
+
+    <div class="row">
+
+        <select id="batch">
+
+            <option value="">Preferred Batch</option>
+            <option>Morning (8:00 AM - 10:00 AM)</option>
+            <option>Afternoon (1:00 PM - 3:00 PM)</option>
+            <option>Evening (5:00 PM - 7:00 PM)</option>
+            <option>Weekend Batch</option>
+
+        </select>
+
+        <input type="text"
+               id="guardianName"
+               placeholder="Guardian Name">
+
+    </div>
+
+    <!-- Experience -->
+
+    <textarea id="experience"
+              placeholder="Previous Musical Experience"></textarea>
+
+    <button type="submit">
+
+        🎸 Register Student
+
+    </button>
 
 </form>
 
-<div class="footer">
+</section>
 
-<br>
+<!-- ================= CONTACT ================= -->
 
-<a href="/employees" class="btn btn-success">
+<section id="contact" class="contact">
 
-View Employees
+    <h2>Contact Us</h2>
 
-</a>
+    <div class="contact-container">
 
-</div>
+        <div class="contact-card">
 
-</div>
+            <i class="fa-solid fa-location-dot"></i>
 
-</div>
+            <h3>Address</h3>
+
+            <p>
+
+                Gwalior, Madhya Pradesh
+
+            </p>
+
+        </div>
+
+        <div class="contact-card">
+
+            <i class="fa-solid fa-phone"></i>
+
+            <h3>Phone</h3>
+
+            <p>
+
+                +91 9876543210
+
+            </p>
+
+        </div>
+
+        <div class="contact-card">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <h3>Email</h3>
+
+            <p>
+
+                info@guitaracademy.com
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h2>
+
+        🎸 Guitar Coaching Academy
+
+    </h2>
+
+    <p>
+
+        Learn Guitar with Professional Mentors
+
+    </p>
+
+    <div class="social-icons">
+
+        <a href="#"><i class="fab fa-facebook"></i></a>
+
+        <a href="#"><i class="fab fa-instagram"></i></a>
+
+        <a href="#"><i class="fab fa-youtube"></i></a>
+
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+
+    </div>
+
+    <p class="copyright">
+
+        © 2026 Guitar Coaching Academy. All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 
